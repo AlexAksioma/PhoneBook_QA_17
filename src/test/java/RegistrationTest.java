@@ -7,9 +7,9 @@ public class RegistrationTest extends TestBase{
 
     @BeforeMethod
     public void preCondition(){
-        pause(5);
-        if(isLogged())
-            logout();
+        app.getUser().pause(5);
+        if(app.getUser().isLogged())
+            app.getUser().logout();
     }
 
     @Test
@@ -18,15 +18,15 @@ public class RegistrationTest extends TestBase{
         String email = "qwerty" + i + "@gmail.com";
         String password = "Qwerty123!_";
         System.out.println(email);
-        openLoginRegistrationForm();
-        filLoginRegistrationForm(email, password);
-        submitRegistration();
-        pause(3);
-        Assert.assertTrue(isElementPresent(By.xpath("//button[text()='Sign Out']")));
+        app.getUser().openLoginRegistrationForm();
+        app.getUser().filLoginRegistrationForm(email, password);
+        app.getUser().submitRegistration();
+        app.getUser().pause(3);
+        Assert.assertTrue(app.getUser().isElementPresent(By.xpath("//button[text()='Sign Out']")));
     }
 
 
-    @Test
+    /*@Test
     public void registrationPositiveTest_ForDel() {
         int i = (int) (System.currentTimeMillis() / 1000) % 3600;
         String email = "qwerty" + i + "@gmail.com";
@@ -37,7 +37,7 @@ public class RegistrationTest extends TestBase{
         submitRegistration();
         pause(3);
         Assert.assertTrue(isElementPresent(By.xpath("//button[text()='Sign Out']")));
-    }
+    }*/
 
     @Test
     public void registrationNegativeTest_Email_WO_Dog(){
@@ -45,11 +45,11 @@ public class RegistrationTest extends TestBase{
         String email = "qwerty" + i + "gmail.com";
         String password = "Qwerty123!_";
         System.out.println(email);
-        openLoginRegistrationForm();
-        filLoginRegistrationForm(email, password);
-        submitRegistration();
-        pause(3);
-        Assert.assertFalse(isElementPresent(By.xpath("//button[text()='Sign Out'")));
+        app.getUser().openLoginRegistrationForm();
+        app.getUser().filLoginRegistrationForm(email, password);
+        app.getUser().submitRegistration();
+        app.getUser().pause(3);
+        Assert.assertFalse(app.getUser().isElementPresent(By.xpath("//button[text()='Sign Out'")));
     }
 
 

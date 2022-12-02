@@ -9,27 +9,27 @@ public class LoginTest extends TestBase {
 
     @BeforeMethod
     public void preCondition(){
-        pause(5);
-        if(isLogged())
-            logout();
+        app.getUser().pause(5);
+        if(app.getUser().isLogged())
+            app.getUser().logout();
     }
 
     @Test
     public void positiveLoginTest(){
-        openLoginRegistrationForm();
-        filLoginRegistrationForm("qwerty3171@gmail.com","Qwerty123!_");
-        submitLogin();
-        pause(5);
-        Assert.assertTrue(isElementPresent(By.xpath("//button[text()='Sign Out']")));
+        app.getUser().openLoginRegistrationForm();
+        app.getUser().filLoginRegistrationForm("qwerty3171@gmail.com","Qwerty123!_");
+        app.getUser().submitLogin();
+        app.getUser().pause(5);
+        Assert.assertTrue(app.getUser().isElementPresent(By.xpath("//button[text()='Sign Out']")));
 
     }
 
     @Test
     public void negativeLoginTest_Email_WO_Dog(){
-        openLoginRegistrationForm();
-        filLoginRegistrationForm("qwerty3171gmail.com","Qwerty123!_");
-        submitLogin();
-        pause(15);
+        app.getUser().openLoginRegistrationForm();
+        app.getUser().filLoginRegistrationForm("qwerty3171gmail.com","Qwerty123!_");
+        app.getUser().submitLogin();
+        app.getUser().pause(15);
 
         //Assert.assertTrue(isElementPresent(By.xpath("//button[text()='Sign Out']")));
     }
