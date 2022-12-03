@@ -3,6 +3,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.nio.charset.Charset;
+import java.util.Random;
+
 public class RegistrationTest extends TestBase{
 
     @BeforeMethod
@@ -14,12 +17,11 @@ public class RegistrationTest extends TestBase{
 
     @Test
     public void registrationPositiveTest() {
-        int i = (int) (System.currentTimeMillis() / 1000) % 3600;
-        String email = "qwerty" + i + "@gmail.com";
+        //int i = (int) (System.currentTimeMillis() / 1000) % 3600;
+        //String email = "qwerty" + i + "@gmail.com";
         String password = "Qwerty123!_";
-        System.out.println(email);
         app.getUser().openLoginRegistrationForm();
-        app.getUser().filLoginRegistrationForm(email, password);
+        app.getUser().filLoginRegistrationForm(app.getUser().generateRandomStringEmail(), password);
         app.getUser().submitRegistration();
         app.getUser().pause(3);
         Assert.assertTrue(app.getUser().isElementPresent(By.xpath("//button[text()='Sign Out']")));
@@ -51,6 +53,8 @@ public class RegistrationTest extends TestBase{
         app.getUser().pause(3);
         Assert.assertFalse(app.getUser().isElementPresent(By.xpath("//button[text()='Sign Out'")));
     }
+
+
 
 
 }

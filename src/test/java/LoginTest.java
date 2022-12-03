@@ -16,10 +16,11 @@ public class LoginTest extends TestBase {
 
     @Test
     public void positiveLoginTest(){
-        app.getUser().openLoginRegistrationForm();
-        app.getUser().filLoginRegistrationForm("qwerty3171@gmail.com","Qwerty123!_");
-        app.getUser().submitLogin();
-        app.getUser().pause(5);
+        //app.getUser().openLoginRegistrationForm();
+        //app.getUser().filLoginRegistrationForm("qwerty3171@gmail.com","Qwerty123!_");
+        //app.getUser().submitLogin();
+        //app.getUser().pause(5);
+        app.getUser().login("qwerty3171@gmail.com","Qwerty123!_");
         Assert.assertTrue(app.getUser().isElementPresent(By.xpath("//button[text()='Sign Out']")));
 
     }
