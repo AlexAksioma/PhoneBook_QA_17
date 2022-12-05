@@ -5,6 +5,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
+import java.util.concurrent.TimeUnit;
+
 public class ApplicatiomManager {
     WebDriver wd;
     HelperUser user;
@@ -16,8 +18,11 @@ public class ApplicatiomManager {
     @BeforeSuite
     public void init() {
         wd = new ChromeDriver();
+        wd.manage().window().maximize();
+
         //wd.navigate().to("https://contacts-app.tobbymarshall815.vercel.app/home"); //old
         wd.navigate().to("https://telranedu.web.app/home"); //new
+        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         user = new HelperUser(wd);
     }
 

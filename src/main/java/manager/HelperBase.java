@@ -1,9 +1,11 @@
 package manager;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -31,7 +33,11 @@ public class HelperBase {
     }
 
     public void pause(int time) {
-        wd.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String generateRandomString(int lengthString, int leftLimit, int rightLimit) {
@@ -76,6 +82,7 @@ public class HelperBase {
         WebElement element = wd.findElement(locator);
         return element.getText();
     }
+
 
 
 
