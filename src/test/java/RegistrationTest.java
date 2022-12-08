@@ -1,3 +1,4 @@
+import models.User;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -17,14 +18,14 @@ public class RegistrationTest extends TestBase{
 
     @Test
     public void registrationPositiveTest() {
-        //int i = (int) (System.currentTimeMillis() / 1000) % 3600;
-        //String email = "qwerty" + i + "@gmail.com";
-        String password = "Qwerty123!_";
+        User data = new User()
+                .withEmail(app.getUser().generateRandomStringEmail())
+                .withPassword("Qwerty123!_");
         app.getUser().openLoginRegistrationForm();
-        app.getUser().filLoginRegistrationForm(app.getUser().generateRandomStringEmail(), password);
+        app.getUser().filLoginRegistrationForm(data);
         app.getUser().submitRegistration();
-        app.getUser().pause(3);
-        Assert.assertTrue(app.getUser().isElementPresent(By.xpath("//button[text()='Sign Out']")));
+        app.getUser().pause(2000);
+        Assert.assertTrue(app.getUser().isLogged());
     }
 
 
@@ -46,12 +47,14 @@ public class RegistrationTest extends TestBase{
         int i = (int) (System.currentTimeMillis() / 1000) % 3600;
         String email = "qwerty" + i + "gmail.com";
         String password = "Qwerty123!_";
-        System.out.println(email);
+        User data = new User()
+                .withEmail(email)
+                .withPassword(password);
         app.getUser().openLoginRegistrationForm();
-        app.getUser().filLoginRegistrationForm(email, password);
+        app.getUser().filLoginRegistrationForm(data);
         app.getUser().submitRegistration();
         app.getUser().pause(3);
-        Assert.assertFalse(app.getUser().isElementPresent(By.xpath("//button[text()='Sign Out'")));
+        //Assert.assertFalse(app.getUser().isElementPresent(By.xpath("//button[text()='Sign Out'")));
     }
 
 

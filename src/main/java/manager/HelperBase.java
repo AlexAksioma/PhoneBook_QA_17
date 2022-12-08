@@ -81,9 +81,9 @@ public class HelperBase {
     public String returnContainsElement(By locator){
         WebElement element = wd.findElement(locator);
         return element.getText();
+    }public String returnContainsAtributeElement(By locator, String atribute){
+        WebElement element = wd.findElement(locator);
+        return element.getAttribute(atribute);
     }
-
-
-
 
 }

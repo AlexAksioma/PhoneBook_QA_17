@@ -1,3 +1,4 @@
+import models.Contact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -18,14 +19,22 @@ public class AddNewContactTest extends TestBase{
 
     @Test
     public void addNewContactPositiveTest(){
-
-        app.getUser().click(By.xpath("//a[@href='/add']"));
         app.getUser().pause(5);
         String name = app.getUser().generateRandomString_a_z(7);
         System.out.println(name);
-        app.getUser().fillAddForm(name, app.getUser().generateRandomString_a_z(15),
-                app.getUser().generateRandomStringNumber(11), app.getUser().generateRandomStringEmail(),
-                app.getUser().generateRandomString_a_z(25), app.getUser().generateRandomString_a_z(50));
+
+        Contact dataContact = new Contact()
+                .withName(name)
+                .withLastName(app.getUser().generateRandomString_a_z(15))
+                .withPhone(app.getUser().generateRandomStringNumber(11))
+                .withEmail(app.getUser().generateRandomStringEmail())
+                .withAddres(app.getUser().generateRandomString_a_z(25))
+                .withDescription(app.getUser().generateRandomString_a_z(50));
+
+        app.getUser().click(By.xpath("//a[@href='/add']"));
+
+        app.getUser().fillAddForm(dataContact);
+
         app.getUser().click(By.xpath("//b[text()='Save']"));
 
         //var 1

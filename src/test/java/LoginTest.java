@@ -1,3 +1,4 @@
+import models.User;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -16,21 +17,19 @@ public class LoginTest extends TestBase {
 
     @Test
     public void positiveLoginTest(){
-        //app.getUser().openLoginRegistrationForm();
-        //app.getUser().filLoginRegistrationForm("qwerty3171@gmail.com","Qwerty123!_");
-        //app.getUser().submitLogin();
-        //app.getUser().pause(5);
-        app.getUser().login("qwerty3171@gmail.com","Qwerty123!_");
-        Assert.assertTrue(app.getUser().isElementPresent(By.xpath("//button[text()='Sign Out']")));
+        User data = new User().withEmail("qwerty3171@gmail.com").withPassword("Qwerty123!_");
+        app.getUser().login(data);
+        Assert.assertTrue(app.getUser().isLogged());
 
     }
 
     @Test
     public void negativeLoginTest_Email_WO_Dog(){
+        User data = new User().withEmail("qwerty3171gmail.com").withPassword("Qwerty123!_");
         app.getUser().openLoginRegistrationForm();
-        app.getUser().filLoginRegistrationForm("qwerty3171gmail.com","Qwerty123!_");
+        app.getUser().filLoginRegistrationForm(data);
         app.getUser().submitLogin();
-        app.getUser().pause(15);
+        app.getUser().pause(2000);
 
 
 
