@@ -19,10 +19,10 @@ public class ApplicatiomManager {
     public void init() {
         wd = new ChromeDriver();
         wd.manage().window().maximize();
-
+        wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //wd.navigate().to("https://contacts-app.tobbymarshall815.vercel.app/home"); //old
         wd.navigate().to("https://telranedu.web.app/home"); //new
-        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
         user = new HelperUser(wd);
     }
 

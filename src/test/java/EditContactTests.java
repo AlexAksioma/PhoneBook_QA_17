@@ -31,13 +31,15 @@ public class EditContactTests extends TestBase{
         String concatStrActual = name+lastName+phone+email+addres+desc;
         System.out.println( concatStrActual);
 
-        Contact dataContact = new Contact()
-                .withName(name)
-                .withLastName(lastName)
-                .withPhone(phone)
-                .withEmail(email)
-                .withAddres(addres)
-                .withDescription(desc);
+        Contact dataContact = Contact.builder()
+                .name(name)
+                .lastName(lastName)
+                .phone(phone)
+                .email(email)
+                .addres(addres)
+                .description(desc)
+                .build();
+
         app.getUser().fillEditForm(dataContact);
         app.getUser().pause(3000);
         app.getUser().click(By.cssSelector("div[class='form_form__FOqHs']>button"));

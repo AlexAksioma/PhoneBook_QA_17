@@ -31,13 +31,15 @@ public class DeleteContactTest extends TestBase{
         String concatStrActual = name+lastName+phone+email+addres+desc;
         System.out.println( concatStrActual);
 
-        Contact dataContact = new Contact()
-                .withName(name)
-                .withLastName(lastName)
-                .withPhone(phone)
-                .withEmail(email)
-                .withAddres(addres)
-                .withDescription(desc);
+        Contact dataContact = Contact.builder()
+                .name(name)
+                .lastName(lastName)
+                .phone(phone)
+                .email(email)
+                .addres(addres)
+                .description(desc)
+                .build();
+
         app.getUser().pause(2000);
         app.getUser().fillAddForm(dataContact);
 
