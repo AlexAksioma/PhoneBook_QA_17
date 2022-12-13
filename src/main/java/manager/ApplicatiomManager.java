@@ -10,9 +10,13 @@ import java.util.concurrent.TimeUnit;
 public class ApplicatiomManager {
     WebDriver wd;
     HelperUser user;
-
+    HelperContact contact;
     public HelperUser getUser() {
         return user;
+    }
+
+    public HelperContact getContact() {
+        return contact;
     }
 
     @BeforeSuite
@@ -24,6 +28,7 @@ public class ApplicatiomManager {
         wd.navigate().to("https://telranedu.web.app/home"); //new
 
         user = new HelperUser(wd);
+        contact = new HelperContact(wd);
     }
 
     @AfterSuite

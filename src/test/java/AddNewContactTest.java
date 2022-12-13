@@ -11,10 +11,10 @@ public class AddNewContactTest extends TestBase {
     @BeforeClass
     public void login() {
         if (app.getUser().isLogged()) {
-            app.getUser().click(By.xpath("//a[@href='/contacts']"));
+            app.getContact().clickContactsButton();
             app.getUser().pause(3000);
         } else
-            app.getUser().login("qwerty3171@gmail.com", "Qwerty123!_");
+            app.getUser().loginWithCorrectData();
     }
 
     @Test
@@ -32,11 +32,11 @@ public class AddNewContactTest extends TestBase {
                 .description(app.getUser().generateRandomString_a_z(50))
                 .build();
 
-        app.getUser().click(By.xpath("//a[@href='/add']"));
+        app.getContact().clickAddButton();
 
-        app.getUser().fillAddForm(dataContact);
+        app.getContact().fillAddContactForm(dataContact);
 
-        app.getUser().click(By.xpath("//b[text()='Save']"));
+        app.getContact().clickSaveButton();
 
         //var 1
         Assert.assertTrue(app.getUser().returnContainsElement(By.xpath("//div[@class='contact-item_card__2SOIM'][last()]")).contains(name));

@@ -9,19 +9,21 @@ public class EditContactTests extends TestBase{
     @BeforeClass
     public void login(){
         if(app.getUser().isLogged()) {
-            app.getUser().click(By.xpath("//a[@href='/contacts']"));
+            app.getContact().clickContactsButton();
             app.getUser().pause(3000);}
         else
-            app.getUser().login("qwerty3171@gmail.com","Qwerty123!_");
+            app.getUser().loginWithCorrectData();
     }
 
     @Test
     public void editContactPositiveTest(){
         app.getUser().pause(3000);
-        app.getUser().click(By.xpath("//div[@class='contact-item_card__2SOIM'][last()]")); //click last element ADD
-        app.getUser().click(By.xpath("//button[text()='Edit']")); //click EDIT
+        app.getContact().clickLastElementContacts();//click last element ADD
+
+        app.getContact().clickEditButton(); //click EDIT
+
         app.getUser().pause(3000);
-        //System.out.println(app.getUser().returnContainsAtributeElement(By.className("form_form__FOqHs"), "class"));
+
         String name = app.getUser().generateRandomString_a_z(5);
         String lastName = app.getUser().generateRandomString_a_z(15);
         String phone = app.getUser().generateRandomStringNumber(11);
@@ -40,12 +42,13 @@ public class EditContactTests extends TestBase{
                 .description(desc)
                 .build();
 
-        app.getUser().fillEditForm(dataContact);
+        app.getContact().fillEditContactForm(dataContact);
+
+        app.getContact().clickSaveButton();
         app.getUser().pause(3000);
-        app.getUser().click(By.cssSelector("div[class='form_form__FOqHs']>button"));
-        app.getUser().pause(3000);
+
         System.out.println(app.getUser().returnContainsElement(By.className("contact-item-detailed_card__50dTS")));
-        app.getUser().click(By.xpath("//button[text()='Edit']")); //click EDIT
+        app.getContact().clickEditButton();//click EDIT
         String concatStrExpected = app.getUser().returnContainsAtributeElement(By.xpath("//div[@class='form_form__FOqHs']/input[@placeholder='Name']"), "value")+
                 app.getUser().returnContainsAtributeElement(By.xpath("//div[@class='form_form__FOqHs']/input[@placeholder='Last Name']"), "value")+
                 app.getUser().returnContainsAtributeElement(By.xpath("//div[@class='form_form__FOqHs']/input[@placeholder='Phone']"), "value")+
