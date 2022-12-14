@@ -10,7 +10,6 @@ public class LoginTest extends TestBase {
 
     @BeforeMethod
     public void preCondition(){
-        app.getUser().pause(5);
         if(app.getUser().isLogged())
             app.getUser().logout();
     }
@@ -31,7 +30,19 @@ public class LoginTest extends TestBase {
         app.getUser().submitLogin();
         app.getUser().pause(2000);
 
-        Assert.assertTrue(app.getUser().isErrorMessageInFormat());
+        Assert.assertTrue(app.getUser().isErrorMessageInFormat("Wrong email or password"));
+        Assert.assertTrue(app.getUser().isAlertPresent());
+    }
+
+    @Test
+    public void negativeLoginTest_User_not_Register(){
+        User data = new User().withEmail("qwertyqwerty@gmail.com").withPassword("Qwerty123!_");
+        app.getUser().openLoginRegistrationForm();
+        app.getUser().filLoginRegistrationForm(data);
+        app.getUser().submitLogin();
+        app.getUser().pause(2000);
+
+        //Assert.assertTrue(app.getUser().isErrorMessageInFormat("Wrong email or password"));
         Assert.assertTrue(app.getUser().isAlertPresent());
     }
 

@@ -41,7 +41,7 @@ public class HelperUser extends HelperBase{
         openLoginRegistrationForm();
         filLoginRegistrationForm(data);
         submitLogin();
-        pause(2000);
+        //pause(2000);
     }
     public void loginWithCorrectData() {
         openLoginRegistrationForm();
@@ -78,9 +78,9 @@ public class HelperUser extends HelperBase{
     }
 
 
-    public boolean isErrorMessageInFormat(){
+    public boolean isErrorMessageInFormat(String message){
         Alert alert = new WebDriverWait(wd, 10).until(ExpectedConditions.alertIsPresent());
-        String message = "Wrong email or password";
+        //String message = "Wrong email or password";
         if(alert==null)
             return false;
         else {
