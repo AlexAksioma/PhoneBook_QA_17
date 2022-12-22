@@ -1,10 +1,10 @@
 package manager;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import com.google.common.io.Files;
+import org.openqa.selenium.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
@@ -84,6 +84,17 @@ public class HelperBase {
     }public String returnContainsAtributeElement(By locator, String atribute){
         WebElement element = wd.findElement(locator);
         return element.getAttribute(atribute);
+    }
+
+    public void takeScreenShot(String link){
+        File file = ((TakesScreenshot)wd).getScreenshotAs(OutputType.FILE);
+        File screenShot = new File(link);
+
+        try {
+            Files.copy(file, screenShot);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
