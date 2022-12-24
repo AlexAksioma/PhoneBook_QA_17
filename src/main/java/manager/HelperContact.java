@@ -3,11 +3,20 @@ package manager;
 import models.Contact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class HelperContact extends HelperBase{
     public HelperContact(WebDriver wd) {
         super(wd);
     }
+
+    Logger logger = LoggerFactory.getLogger(HelperContact.class);
 
     public void clickAddButton() {
         click(By.xpath("//a[@href='/add']"));
@@ -18,6 +27,9 @@ public class HelperContact extends HelperBase{
     }
     public void clickLastElementContacts() {
         click(By.xpath("//div[@class='contact-item_card__2SOIM'][last()]"));
+        logger.info("Last element with number phone = "+
+                wd.findElement(By.xpath("//div[@class='contact-item_card__2SOIM'][last()]/h3")).getText());
+
     }
 
     public void clickRemoveButton() {
@@ -51,4 +63,16 @@ public class HelperContact extends HelperBase{
     }
 
 
+    public int quantityContacts() {
+        //WebDriverWait wait = new WebDriverWait(wd, 5);
+        //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='contact-item_card__2SOIM']")));
+        List<WebElement> elementsAddForm = wd.findElements(By.xpath("//div[@class='contact-item_card__2SOIM']"));
+        return elementsAddForm.size();
+    }
+
+    public boolean contactsListIsEmpty(){
+        return  isElementPresent(By.xpath(
+                "//div[@class='contact-page_message__2qafk']/h1[text()=' No Contacts here!']"));
+
+    }
 }

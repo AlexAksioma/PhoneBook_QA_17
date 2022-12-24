@@ -13,12 +13,16 @@ public class DeleteContactTest extends TestBase{
         if(app.getUser().isLogged()) {
             app.getContact().clickContactsButton();
             app.getUser().pause(3000);}
-        else
+        else{
             app.getUser().loginWithCorrectData();
+            app.getContact().clickContactsButton();
+            app.getUser().pause(3000);
+        }
     }
 
     @Test
     public void deleteLastContactPositiveTest(){
+        /*
         app.getContact().clickAddButton();
         app.getContact().pause(2000);
 
@@ -41,19 +45,28 @@ public class DeleteContactTest extends TestBase{
                 .build();
 
         app.getContact().fillAddContactForm(dataContact);
+        app.getContact().clickSaveButton();//add contact in list of elements
+        */
 
-        app.getContact().clickSaveButton();
+        if(!app.getContact().contactsListIsEmpty()){
+            int quantityElements = app.getContact().quantityContacts();
+            logger.info("quantity contacts = "+quantityElements);
+            app.getContact().clickLastElementContacts(); //click last element contacts
+            app.getContact().clickRemoveButton();//delete last element
+            app.getUser().pause(3000);
 
-        List<WebElement> elementsAddForm = app.getUser().elementsPresent(By.xpath("//div[@class='contact-item_card__2SOIM']"));
-        int quantityElements = elementsAddForm.size();
+        Assert.assertEquals(quantityElements-1, app.getContact().quantityContacts());
+        }
 
-        app.getContact().clickLastElementContacts(); //click last element contacts
+    }
 
-        app.getContact().clickRemoveButton();//delete last element
-
-        app.getUser().pause(3000);
-
-        Assert.assertEquals(quantityElements-1, app.getUser().elementsPresent(By.xpath("//div[@class='contact-item_card__2SOIM']")).size());
-
+    @Test
+    public void deleteAllContactsPositiveTest(){
+        while (!app.getContact().contactsListIsEmpty()) {
+            app.getContact().clickLastElementContacts(); //click last element contacts
+            app.getContact().clickRemoveButton();//delete last element
+            app.getUser().pause(3000);
+        }
+        Assert.assertTrue(app.getContact().contactsListIsEmpty());
     }
 }

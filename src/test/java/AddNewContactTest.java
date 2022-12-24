@@ -17,7 +17,7 @@ public class AddNewContactTest extends TestBase {
             app.getUser().loginWithCorrectData();
     }
 
-    @Test
+    @Test(invocationCount = 5)
     public void addNewContactPositiveTest() {
         app.getUser().pause(5);
         String name = app.getUser().generateRandomString_a_z(7);
