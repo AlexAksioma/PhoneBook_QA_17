@@ -12,14 +12,14 @@ public class AddNewContactTest extends TestBase {
     public void login() {
         if (app.getUser().isLogged()) {
             app.getContact().clickContactsButton();
-            app.getUser().pause(3000);
+            //app.getUser().pause(3000);
         } else
             app.getUser().loginWithCorrectData();
     }
 
     @Test(invocationCount = 5)
     public void addNewContactPositiveTest() {
-        app.getUser().pause(5);
+        //app.getUser().pause(5);
         String name = app.getUser().generateRandomString_a_z(7);
         System.out.println(name);
 
