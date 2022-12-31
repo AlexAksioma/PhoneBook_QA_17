@@ -2,6 +2,7 @@ import models.Contact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -19,7 +20,7 @@ public class DeleteContactTest extends TestBase{
 
     @BeforeMethod
     public void addNewContactBeforeDeleteTest(){
-        for(int i=0;i<5;i++){
+        for(int i=0;i<2;i++){
             app.getContact().clickAddButton();
             Contact dataContact = Contact.builder()
                 .name(app.getUser().generateRandomString_a_z(5))
@@ -57,5 +58,11 @@ public class DeleteContactTest extends TestBase{
             app.getUser().pause(1000);
         }
         Assert.assertTrue(app.getContact().contactsListIsEmpty());
+    }
+    @AfterClass
+    public void logout(){
+        if(app.getUser().isLogged())
+            app.getUser().logout();
+        app.getUser().clickButtonHome();
     }
 }

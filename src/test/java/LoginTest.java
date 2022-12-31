@@ -2,6 +2,7 @@ import models.User;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -46,8 +47,10 @@ public class LoginTest extends TestBase {
         Assert.assertTrue(app.getUser().isAlertPresent());
     }
 
-    @AfterMethod
-    public void tearDown(){
-        //wd.quit();
+    @AfterClass
+    public void logout(){
+        if(app.getUser().isLogged())
+            app.getUser().logout();
+        app.getUser().clickButtonHome();
     }
 }

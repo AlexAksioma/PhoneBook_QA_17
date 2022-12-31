@@ -2,12 +2,13 @@ import models.Contact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class AddNewContactTest extends TestBase {
+public class AddNewContactTest extends TestBase {//+negative tests!!!!!!!!
     @BeforeClass
     public void login() {
         if (app.getUser().isLogged()) {
@@ -17,7 +18,7 @@ public class AddNewContactTest extends TestBase {
             app.getUser().loginWithCorrectData();
     }
 
-    @Test(invocationCount = 5)
+    @Test(invocationCount = 3)
     public void addNewContactPositiveTest() {
         //app.getUser().pause(5);
         String name = app.getUser().generateRandomString_a_z(7);
@@ -53,5 +54,11 @@ public class AddNewContactTest extends TestBase {
         }
 
 
+    }
+    @AfterClass
+    public void logout(){
+        if(app.getUser().isLogged())
+            app.getUser().logout();
+        app.getUser().clickButtonHome();
     }
 }

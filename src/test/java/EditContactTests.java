@@ -1,6 +1,7 @@
 import models.Contact;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -16,7 +17,7 @@ public class EditContactTests extends TestBase{
 
     @BeforeMethod
     public void addNewContactBeforeEditTest(){
-        for(int i=0;i<5;i++){
+        for(int i=0;i<3;i++){
             app.getContact().clickAddButton();
             Contact dataContact = Contact.builder()
                     .name(app.getUser().generateRandomString_a_z(5))
@@ -74,5 +75,12 @@ public class EditContactTests extends TestBase{
         System.out.println(concatStrExpected);
         Assert.assertEquals(concatStrActual, concatStrExpected);
 
+    }
+
+    @AfterClass
+    public void logout(){
+        if(app.getUser().isLogged())
+            app.getUser().logout();
+        app.getUser().clickButtonHome();
     }
 }

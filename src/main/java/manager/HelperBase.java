@@ -97,4 +97,7 @@ public class HelperBase {
         }
     }
 
+    public void clickButtonHome() {
+        click(By.cssSelector("a[href='/home']"));
+    }
 }

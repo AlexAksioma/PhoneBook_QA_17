@@ -26,3 +26,18 @@ dependencies {
 test {
     useTestNG()
 }
+
+task AllTests(type: Test){
+    useTestNG(){
+        suites 'src/test/resources/allTests.xml'
+    }
+}
+
+task Regretion(type:Test){
+    useTestNG(){
+        suites 'src/test/resources/regretion.xml'
+    }
+    if(project.hasProperty('browser')){
+        systemProperty 'browser', "${browser}"
+    }
+}
