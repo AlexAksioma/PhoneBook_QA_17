@@ -1,0 +1,21 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="positive" verbose="1">
+    <test name="positive_test">
+        <groups>
+            <run>
+                <include name="positivegroup"/>
+            </run>
+
+        </groups>
+
+
+        <classes>
+            <class name="LoginTest"/>
+            <class name="RegistrationTest"/>
+        </classes>
+    </test>
+
+
+</suite>
+

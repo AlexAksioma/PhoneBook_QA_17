@@ -9,6 +9,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeSuite;
 
 import java.util.concurrent.TimeUnit;
@@ -60,7 +61,7 @@ public class ApplicatiomManager {
         contact = new HelperContact(wd);
     }
 
-    @AfterSuite
+    @AfterSuite(alwaysRun = true)
     public void stop() {
         //wd.quit();
     }

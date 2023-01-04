@@ -28,14 +28,31 @@ test {
 }
 
 task AllTests(type: Test){
-    useTestNG(){
+    useTestNG{
         suites 'src/test/resources/allTests.xml'
     }
 }
 
-task Regretion(type:Test){
+task positive_group_tests (type: Test){
+    useTestNG {
+        def groups = System.getProperty('groups')
+        if (groups != null) {
+            includeGroups groups
+        }
+        suites 'src/test/resources/positiveTesting.xml'
+
+    }
+}
+
+task tests(type:Test){
     useTestNG(){
-        suites 'src/test/resources/regretion.xml'
+        def suite = System.getProperty('suite','')
+        if(suite.equals('contact_tests'))
+            suites 'src/test/resources/contact_test.xml'
+        else if(suite.equals('log_reg_tests'))
+            suites 'src/test/resources/log_reg_tests.xml'
+        else
+            suites 'src/test/resources/allTests.xml'
     }
     if(project.hasProperty('browser')){
         systemProperty 'browser', "${browser}"

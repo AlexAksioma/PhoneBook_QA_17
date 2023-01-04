@@ -10,14 +10,14 @@ import org.testng.annotations.Test;
 
 public class RegistrationTest extends TestBase{
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void preCondition(){
         //app.getUser().pause(5);
         if(app.getUser().isLogged())
             app.getUser().logout();
     }
 
-    @Test
+    @Test(groups = {"positivegroup"})
     public void registrationPositiveTest() {
         User data = new User()
                 .withEmail(app.getUser().generateRandomStringEmail())
@@ -70,7 +70,7 @@ public class RegistrationTest extends TestBase{
 
 
     }
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void logout(){
         if(app.getUser().isLogged())
             app.getUser().logout();

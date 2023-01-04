@@ -2,20 +2,23 @@ import models.User;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 public class LoginTest extends TestBase {
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void preCondition(){
+        logger.info("start before method");
         if(app.getUser().isLogged())
             app.getUser().logout();
     }
 
-    @Test
+    @BeforeGroups("positivegroup")
+    public void initBeforeGroup(){
+        app.init();
+    }
+
+    @Test(groups = {"positivegroup"})
     public void positiveLoginTest(){
         User data = new User().withEmail("qwerty3171@gmail.com").withPassword("Qwerty123!_");
         app.getUser().login(data);
@@ -47,8 +50,9 @@ public class LoginTest extends TestBase {
         Assert.assertTrue(app.getUser().isAlertPresent());
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void logout(){
+        logger.info("start after class");
         if(app.getUser().isLogged())
             app.getUser().logout();
         app.getUser().clickButtonHome();

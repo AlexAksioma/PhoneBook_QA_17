@@ -1,8 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="Reg" verbose="1" >
-    <test name="regresTest" >
+<suite name="contact_tests" verbose="1" >
+    <test name="add_del_edit_contact" >
         <classes>
+            <class name="AddNewContactTest" />
             <class name="DeleteContactTest" />
             <class name="EditContactTests" />
         </classes>

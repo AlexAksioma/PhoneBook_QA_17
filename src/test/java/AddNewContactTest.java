@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 public class AddNewContactTest extends TestBase {//+negative tests!!!!!!!!
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void login() {
         if (app.getUser().isLogged()) {
             app.getContact().clickContactsButton();
@@ -18,7 +18,7 @@ public class AddNewContactTest extends TestBase {//+negative tests!!!!!!!!
             app.getUser().loginWithCorrectData();
     }
 
-    @Test(invocationCount = 3)
+    @Test(invocationCount = 3, groups = {"positiveGroup"})
     public void addNewContactPositiveTest() {
         //app.getUser().pause(5);
         String name = app.getUser().generateRandomString_a_z(7);
@@ -55,7 +55,7 @@ public class AddNewContactTest extends TestBase {//+negative tests!!!!!!!!
 
 
     }
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void logout(){
         if(app.getUser().isLogged())
             app.getUser().logout();
