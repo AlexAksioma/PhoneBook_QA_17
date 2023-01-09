@@ -1,3 +1,4 @@
+import manager.DataProviderForContact;
 import models.Contact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -18,32 +19,38 @@ public class AddNewContactTest extends TestBase {//+negative tests!!!!!!!!
             app.getUser().loginWithCorrectData();
     }
 
-    @Test(invocationCount = 3, groups = {"positiveGroup"})
-    public void addNewContactPositiveTest() {
-        //app.getUser().pause(5);
-        String name = app.getUser().generateRandomString_a_z(7);
-        System.out.println(name);
-
-        Contact dataContact = Contact.builder()
-                .name(name)
-                .lastName(app.getUser().generateRandomString_a_z(15))
-                .phone(app.getUser().generateRandomStringNumber(11))
-                .email(app.getUser().generateRandomStringEmail())
-                .addres(app.getUser().generateRandomString_a_z(25))
-                .description(app.getUser().generateRandomString_a_z(50))
-                .build();
-
+    @Test(dataProvider = "myDPMethod", dataProviderClass = DataProviderForContact.class,
+            groups = {"positiveGroup"})
+    public void addNewContactPositiveTest(Contact contact) {
+        String name = contact.getName();
         app.getContact().clickAddButton();
-
-        app.getContact().fillAddContactForm(dataContact);
-
+        app.getContact().fillAddContactForm(contact);
         app.getContact().clickSaveButton();
-
         //var 1
         Assert.assertTrue(app.getUser().returnContainsElement(By.xpath("//div[@class='contact-item_card__2SOIM'][last()]")).contains(name));
-
         app.getUser().click(By.xpath("//div[@class='contact-item_card__2SOIM'][last()]")); //click last element ADD
+        //var 2
+        List<WebElement> elementsAddForm = app.getUser().elementsPresent(By.xpath("//div[@class='contact-item_card__2SOIM']"));
+        for (WebElement e : elementsAddForm) {
+            if (e.getText().contains(name)) {
+                Assert.assertTrue(true);
+                return;
+            }
+        }
 
+
+    }
+
+    @Test(dataProvider = "myDPFile", dataProviderClass = DataProviderForContact.class,
+            groups = {"positiveGroup"})
+    public void addNewContactPositiveTest_DP_file(Contact contact) {
+        String name = contact.getName();
+        app.getContact().clickAddButton();
+        app.getContact().fillAddContactForm(contact);
+        app.getContact().clickSaveButton();
+        //var 1
+        Assert.assertTrue(app.getUser().returnContainsElement(By.xpath("//div[@class='contact-item_card__2SOIM'][last()]")).contains(name));
+        app.getUser().click(By.xpath("//div[@class='contact-item_card__2SOIM'][last()]")); //click last element ADD
         //var 2
         List<WebElement> elementsAddForm = app.getUser().elementsPresent(By.xpath("//div[@class='contact-item_card__2SOIM']"));
         for (WebElement e : elementsAddForm) {
